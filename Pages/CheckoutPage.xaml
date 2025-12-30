@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CoffeeShop.Pages.CheckoutPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
+
+    <Grid Padding="16" RowDefinitions="Auto,*,Auto" RowSpacing="10">
+
+        <VerticalStackLayout Spacing="8">
+            <Entry Placeholder="Customer name" Text="{Binding CustomerName}" />
+            <Entry Placeholder="Telephone" Keyboard="Telephone" Text="{Binding Telephone}" />
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Lines}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,Auto" Padding="10">
+                        <Label Text="{Binding .}" />
+                        <Button Grid.Column="1" Text="Remove"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoveLineCommand}"
+                                CommandParameter="{Binding .}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="2"
+                Text="{Binding Total, StringFormat='Place Order (Total: €{0:0.00})'}"
+                Command="{Binding PlaceOrderCommand}" />
+    </Grid>
+</ContentPage>

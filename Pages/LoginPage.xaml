@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CoffeeShop.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Coffee Shop">
+
+    <VerticalStackLayout Padding="24" Spacing="16" VerticalOptions="Center">
+        <Label Text="☕ Coffee Shop ☕" FontSize="32" HorizontalOptions="Center"/>
+        <Label Text="Order java from your phone." HorizontalOptions="Center" />
+
+        <Button Text="Enter"
+                Command="{Binding EnterCommand}" />
+    </VerticalStackLayout>
+</ContentPage>
