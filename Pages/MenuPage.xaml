@@ -3,6 +3,7 @@
     x:Class="CoffeeShop.Pages.MenuPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:CoffeeShop.Pages"
     Title="{Binding Title}">
 
     <Grid Padding="16" RowDefinitions="*,Auto" RowSpacing="10">
@@ -13,11 +14,25 @@
                         <Label Text="{Binding Name}" FontAttributes="Bold"/>
                         <Label Grid.Row="1" Text="{Binding Price, StringFormat='€{0:0.00}'}" Opacity="0.8"/>
 
-                        <HorizontalStackLayout Grid.Column="1" Grid.RowSpan="2" Spacing="8" VerticalOptions="Center">
-                            <Button Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DecreaseCommand}"
-                                    CommandParameter="{Binding .}"/>
-                            <Button Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AddCommand}"
-                                    CommandParameter="{Binding .}"/>
+                        <HorizontalStackLayout Grid.Column="1"
+                                             Grid.RowSpan="2"
+                                             Spacing="8"
+                                             VerticalOptions="Center">
+
+                            <Button Text="-"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type pages:MenuPage}}, Path=BindingContext.DecreaseCommand}"
+                                    CommandParameter="{Binding .}" />
+
+                            <Label Text="{Binding Quantity}"
+                                   WidthRequest="28"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center"
+                                   FontAttributes="Bold"
+                                   Padding="4,0" />
+
+                            <Button Text="+"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type pages:MenuPage}}, Path=BindingContext.AddCommand}"
+                                    CommandParameter="{Binding .}" />
                         </HorizontalStackLayout>
                     </Grid>
                 </DataTemplate>

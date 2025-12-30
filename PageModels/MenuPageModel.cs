@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using CoffeeShop.Models;
 using CoffeeShop.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-
 
 namespace CoffeeShop.PageModels;
 
@@ -20,10 +17,10 @@ public partial class MenuPageModel : BaseViewModel
     {
         _menu = menu;
         _basket = basket;
-        Items = new ObservableCollection<CoffeeShopMenuItem>();
+        Items = new ObservableCollection<MenuItemRow>();
     }
 
-    public ObservableCollection<CoffeeShopMenuItem> Items { get; }
+    public ObservableCollection<MenuItemRow> Items { get; }
 
     private string? _categoryName;
     public string? CategoryName
@@ -39,8 +36,15 @@ public partial class MenuPageModel : BaseViewModel
             Title = parsed.ToString();
 
             Items.Clear();
+
             foreach (var item in _menu.GetByCategory(parsed))
-                Items.Add(item);
+            {
+                // Match basket quantity for this item
+                var line = _basket.Lines.FirstOrDefault(l => l.Item.Id == item.Id);
+                var qty = line?.Quantity ?? 0;
+
+                Items.Add(new MenuItemRow(item, qty));
+            }
 
             OnPropertyChanged(nameof(BasketTotal));
         }
@@ -49,17 +53,28 @@ public partial class MenuPageModel : BaseViewModel
     public decimal BasketTotal => _basket.Total;
 
     [RelayCommand]
-    private void Add(CoffeeShopMenuItem item)
+    private void Add(MenuItemRow row)
     {
-        _basket.Add(item);
+        _basket.Add(row.Item);
+        RefreshQuantities();
         OnPropertyChanged(nameof(BasketTotal));
     }
 
     [RelayCommand]
-    private void Decrease(CoffeeShopMenuItem item)
+    private void Decrease(MenuItemRow row)
     {
-        _basket.Decrease(item);
+        _basket.Decrease(row.Item);
+        RefreshQuantities();
         OnPropertyChanged(nameof(BasketTotal));
+    }
+
+    private void RefreshQuantities()
+    {
+        foreach (var row in Items)
+        {
+            var line = _basket.Lines.FirstOrDefault(l => l.Item.Id == row.Item.Id);
+            row.Quantity = line?.Quantity ?? 0;
+        }
     }
 
     [RelayCommand]
