@@ -7,26 +7,47 @@ namespace CoffeeShop.Services;
 
 public class MenuService
 {
-    private readonly List<CoffeeShopMenuItem> _items = new()
+    private readonly DatabaseService _databaseService;
+
+    public MenuService(DatabaseService databaseService)
     {
-        new CoffeeShopMenuItem { Name="Americano", Price=3.20m, Category=MenuCategory.HotDrinks },
-        new CoffeeShopMenuItem { Name="Cappuccino", Price=3.60m, Category=MenuCategory.HotDrinks },
-        new CoffeeShopMenuItem { Name="Tea", Price=2.80m, Category=MenuCategory.HotDrinks },
-
-        new CoffeeShopMenuItem { Name="Ham & Cheese Toastie", Price=5.50m, Category=MenuCategory.Food },
-        new CoffeeShopMenuItem { Name="Blueberry Muffin", Price=3.10m, Category=MenuCategory.Food },
-        new CoffeeShopMenuItem { Name="Chocolate Brownie", Price=3.40m, Category=MenuCategory.Food },
-
-        new CoffeeShopMenuItem { Name="Water", Price=1.80m, Category=MenuCategory.ColdDrinks },
-        new CoffeeShopMenuItem { Name="Canned Cola", Price=2.20m, Category=MenuCategory.ColdDrinks },
-        new CoffeeShopMenuItem { Name="Orange Juice", Price=2.50m, Category=MenuCategory.ColdDrinks }
-    };
-
-    public IReadOnlyList<CoffeeShopMenuItem> GetByCategory(MenuCategory category)
-    {
-        System.Diagnostics.Debug.WriteLine($"CATEGORY RECEIVED: {category}");
-        return _items.Where(i => i.Category == category).ToList();
+        _databaseService = databaseService;
     }
 
+    public async Task<IReadOnlyList<CoffeeShopMenuItem>> GetByCategoryAsync(MenuCategory category)
+    {
+        System.Diagnostics.Debug.WriteLine($"CATEGORY RECEIVED: {category}");
+        return await _databaseService.GetMenuItemsByCategoryAsync(category);
+    }
+
+    public async Task<IReadOnlyList<CoffeeShopMenuItem>> GetAllItemsAsync()
+    {
+        return await _databaseService.GetAllMenuItemsAsync();
+    }
+
+    public async Task<CoffeeShopMenuItem?> GetItemByIdAsync(string id)
+    {
+        return await _databaseService.GetMenuItemByIdAsync(id);
+    }
+
+    public async Task<int> AddItemAsync(CoffeeShopMenuItem item)
+    {
+        return await _databaseService.AddMenuItemAsync(item);
+    }
+
+    public async Task<int> UpdateItemAsync(CoffeeShopMenuItem item)
+    {
+        return await _databaseService.UpdateMenuItemAsync(item);
+    }
+
+    public async Task<int> DeleteItemAsync(string id)
+    {
+        return await _databaseService.DeleteMenuItemAsync(id);
+    }
+
+    public async Task<int> DeleteItemAsync(CoffeeShopMenuItem item)
+    {
+        return await _databaseService.DeleteMenuItemAsync(item);
+    }
 }
 

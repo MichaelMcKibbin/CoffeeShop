@@ -24,6 +24,7 @@ public static class MauiProgram
 
 
         // Services
+        builder.Services.AddSingleton<DatabaseService>();
         builder.Services.AddSingleton<MenuService>();
         builder.Services.AddSingleton<BasketService>();
         builder.Services.AddSingleton<OrderStore>();

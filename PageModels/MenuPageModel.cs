@@ -35,18 +35,25 @@ public partial class MenuPageModel : BaseViewModel
 
             Title = parsed.ToString();
 
-            Items.Clear();
-
-            foreach (var item in _menu.GetByCategory(parsed))
-            {
-                // Match basket quantity for this item
-                var line = _basket.Lines.FirstOrDefault(l => l.Item.Id == item.Id);
-                var qty = line?.Quantity ?? 0;
-
-                Items.Add(new MenuItemRow(item, qty));
-            }
+            LoadMenuItemsAsync(parsed);
 
             OnPropertyChanged(nameof(BasketTotal));
+        }
+    }
+
+    private async void LoadMenuItemsAsync(MenuCategory category)
+    {
+        Items.Clear();
+
+        var items = await _menu.GetByCategoryAsync(category);
+        
+        foreach (var item in items)
+        {
+            // Match basket quantity for this item
+            var line = _basket.Lines.FirstOrDefault(l => l.Item.Id == item.Id);
+            var qty = line?.Quantity ?? 0;
+
+            Items.Add(new MenuItemRow(item, qty));
         }
     }
 
