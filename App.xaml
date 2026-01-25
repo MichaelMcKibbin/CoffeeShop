@@ -2,6 +2,7 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CoffeeShop"
+             xmlns:converters="clr-namespace:CoffeeShop.Converters"
              x:Class="CoffeeShop.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -10,6 +11,10 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/AppStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <converters:BoolToTextConverter x:Key="BoolToTextConverter" />
+            <converters:BoolToButtonTextConverter x:Key="BoolToButtonTextConverter" />
+            <converters:BoolToToggleTextConverter x:Key="BoolToToggleTextConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

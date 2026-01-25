@@ -1,48 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 using CoffeeShop.Models;
-using System.Text.Json;
 
 namespace CoffeeShop.Services;
 
 public class OrderStore
 {
-    private readonly string _path;
+    private readonly DatabaseService _database;
+    private readonly UserSession _userSession;
 
-    public OrderStore()
+    public OrderStore(DatabaseService database, UserSession userSession)
     {
-        _path = Path.Combine(FileSystem.AppDataDirectory, "orders.json");
+        _database = database;
+        _userSession = userSession;
     }
 
     public async Task<List<Order>> LoadAllAsync()
     {
-        if (!File.Exists(_path)) return new List<Order>();
-        var json = await File.ReadAllTextAsync(_path);
-        return JsonSerializer.Deserialize<List<Order>>(json) ?? new List<Order>();
+        if (!_userSession.IsLoggedIn)
+            return new List<Order>();
+
+        return await _database.GetOrdersByUserIdAsync(_userSession.CurrentUser!.Id);
     }
 
     public async Task SaveOrderAsync(Order order)
     {
-        var all = await LoadAllAsync();
-        all.Add(order);
+        if (!_userSession.IsLoggedIn)
+            throw new InvalidOperationException("User must be logged in to save orders");
 
-        var json = JsonSerializer.Serialize(all, new JsonSerializerOptions
-        {
-            WriteIndented = true
-        });
-
-        await File.WriteAllTextAsync(_path, json);
+        order.UserId = _userSession.CurrentUser!.Id;
+        await _database.SaveOrderAsync(order);
     }
 
     public async Task<List<Order>> LoadTodayAsync()
     {
-        var all = await LoadAllAsync();
-        var today = DateTime.Now.Date;
-        return all.Where(o => o.LocalDateTime.Date == today)
-                  .OrderByDescending(o => o.LocalDateTime)
-                  .ToList();
+        if (!_userSession.IsLoggedIn)
+            return new List<Order>();
+
+        return await _database.GetTodayOrdersByUserIdAsync(_userSession.CurrentUser!.Id);
     }
 }
 

@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CoffeeShop.PageModels;
 
 namespace CoffeeShop.Pages;
 
 public partial class CategoriesPage : ContentPage
 {
-    public CategoriesPage(PageModels.CategoriesPageModel vm)
+    private readonly CategoriesPageModel _viewModel;
+
+    public CategoriesPage(CategoriesPageModel vm)
     {
         InitializeComponent();
-        BindingContext = vm;
+        BindingContext = _viewModel = vm;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _viewModel.OnAppearing();
     }
 }
 

@@ -6,23 +6,33 @@
     Title="Categories">
 
     <VerticalStackLayout Padding="24" Spacing="14">
-
-        <Button Text="Cold drinks"
-        Command="{Binding OpenCategoryCommand}"
-        CommandParameter="ColdDrinks" />
-
-        <Button Text="Food"
-        Command="{Binding OpenCategoryCommand}"
-        CommandParameter="Food" />
+        
+        <Label Text="{Binding WelcomeMessage}" 
+               FontSize="20" 
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,0,0,10" />
 
         <Button Text="Hot drinks"
-        Command="{Binding OpenCategoryCommand}"
-        CommandParameter="HotDrinks" />
+                Command="{Binding OpenCategoryCommand}"
+                CommandParameter="HotDrinks" />
 
+        <Button Text="Cold drinks"
+                Command="{Binding OpenCategoryCommand}"
+                CommandParameter="ColdDrinks" />
+
+        <Button Text="Food"
+                Command="{Binding OpenCategoryCommand}"
+                CommandParameter="Food" />
 
         <BoxView HeightRequest="1" Opacity="0.2" Margin="0,10"/>
 
-        <Button Text="Today's Orders (History)"
+        <Button Text="Order History"
                 Command="{Binding OpenHistoryCommand}" />
+        
+        <Button Text="Logout"
+                Command="{Binding LogoutCommand}"
+                BackgroundColor="LightCyan"
+                TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
     </VerticalStackLayout>
 </ContentPage>

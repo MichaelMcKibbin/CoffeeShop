@@ -5,11 +5,47 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Coffee Shop">
 
-    <VerticalStackLayout Padding="24" Spacing="16" VerticalOptions="Center">
-        <Label Text="☕ Coffee Shop ☕" FontSize="32" HorizontalOptions="Center"/>
-        <Label Text="Order java from your phone." HorizontalOptions="Center" />
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16" VerticalOptions="Center">
+            <Label Text="☕ Coffee Shop ☕" FontSize="32" HorizontalOptions="Center" Margin="0,0,0,20"/>
+            
+            <Label Text="{Binding IsRegistering, Converter={StaticResource BoolToTextConverter}}" 
+                   FontSize="20" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
 
-        <Button Text="Enter"
-                Command="{Binding EnterCommand}" />
-    </VerticalStackLayout>
+            <Entry Placeholder="Username" 
+                   Text="{Binding Username}"
+                   ReturnType="Next" />
+
+            <Entry Placeholder="Password" 
+                   Text="{Binding Password}"
+                   IsPassword="True"
+                   ReturnType="Next" />
+
+            <Entry Placeholder="Full Name" 
+                   Text="{Binding FullName}"
+                   IsVisible="{Binding IsRegistering}"
+                   ReturnType="Next" />
+
+            <Entry Placeholder="Phone Number" 
+                   Text="{Binding PhoneNumber}"
+                   IsVisible="{Binding IsRegistering}"
+                   Keyboard="Telephone"
+                   ReturnType="Done" />
+
+            <Label Text="{Binding ErrorMessage}" 
+                   TextColor="Red"
+                   IsVisible="{Binding HasError}"
+                   HorizontalOptions="Center" />
+
+            <Button Text="{Binding IsRegistering, Converter={StaticResource BoolToButtonTextConverter}}"
+                    Command="{Binding SubmitCommand}" />
+
+            <Button Text="{Binding IsRegistering, Converter={StaticResource BoolToToggleTextConverter}}"
+                    Command="{Binding ToggleModeCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

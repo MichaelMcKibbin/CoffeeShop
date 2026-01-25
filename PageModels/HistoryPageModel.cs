@@ -15,7 +15,7 @@ public partial class HistoryPageModel : BaseViewModel
     public HistoryPageModel(OrderStore store)
     {
         _store = store;
-        Title = "Today's Orders";
+        Title = "Order History";
         Orders = new ObservableCollection<Order>();
     }
 
@@ -25,7 +25,7 @@ public partial class HistoryPageModel : BaseViewModel
     public async Task LoadAsync()
     {
         Orders.Clear();
-        var today = await _store.LoadTodayAsync();
-        foreach (var o in today) Orders.Add(o);
+        var allOrders = await _store.LoadAllAsync();
+        foreach (var o in allOrders) Orders.Add(o);
     }
 }

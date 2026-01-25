@@ -6,7 +6,7 @@
     xmlns:pages="clr-namespace:CoffeeShop.Pages">
 
     <!-- Login as the initial page, then categories as a named route -->
-    <ShellContent Title="Login" ContentTemplate="{DataTemplate pages:LoginPage}" />
+    <ShellContent Route="login" Title="Login" ContentTemplate="{DataTemplate pages:LoginPage}" />
 
     <!-- This makes "//categories" work -->
     <TabBar>
