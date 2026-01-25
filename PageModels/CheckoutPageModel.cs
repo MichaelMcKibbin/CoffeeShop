@@ -13,14 +13,23 @@ public partial class CheckoutPageModel : BaseViewModel
 {
     private readonly BasketService _basket;
     private readonly OrderStore _store;
+    private readonly UserSession _userSession;
 
-    public CheckoutPageModel(BasketService basket, OrderStore store)
+    public CheckoutPageModel(BasketService basket, OrderStore store, UserSession userSession)
     {
         _basket = basket;
         _store = store;
+        _userSession = userSession;
 
         Lines = _basket.Lines; // bind directly
         Title = "Checkout";
+        
+        // Auto-populate from logged-in user
+        if (_userSession.IsLoggedIn && _userSession.CurrentUser != null)
+        {
+            CustomerName = _userSession.CurrentUser.FullName;
+            Telephone = _userSession.CurrentUser.PhoneNumber;
+        }
     }
 
     public ObservableCollection<OrderLine> Lines { get; }
@@ -40,12 +49,6 @@ public partial class CheckoutPageModel : BaseViewModel
     [RelayCommand]
     private async Task PlaceOrderAsync()
     {
-        if (string.IsNullOrWhiteSpace(CustomerName) || string.IsNullOrWhiteSpace(Telephone))
-        {
-            await Shell.Current.DisplayAlert("Missing details", "Please enter name and telephone.", "OK");
-            return;
-        }
-
         if (Lines.Count == 0)
         {
             await Shell.Current.DisplayAlert("Empty basket", "Add at least one item.", "OK");
@@ -64,8 +67,6 @@ public partial class CheckoutPageModel : BaseViewModel
         await _store.SaveOrderAsync(order);
 
         _basket.Clear();
-        CustomerName = "";
-        Telephone = "";
 
         await Shell.Current.GoToAsync("receipt", new Dictionary<string, object>
         {

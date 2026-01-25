@@ -11,10 +11,17 @@
         <CollectionView ItemsSource="{Binding Orders}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Padding="10">
+                    <Frame Padding="10" Margin="0,0,0,8">
                         <VerticalStackLayout Spacing="6">
-                            <Label Text="{Binding CustomerName}" FontAttributes="Bold"/>
-                            <Label Text="{Binding Summary}" LineBreakMode="TailTruncation" MaxLines="5"/>
+                            <Label Text="{Binding FormattedOrderDate}" 
+                                   FontSize="12" 
+                                   TextColor="Gray" />
+                            <Label Text="{Binding CustomerName}" 
+                                   FontAttributes="Bold" 
+                                   FontSize="16" />
+                            <Label Text="{Binding Summary}" 
+                                   LineBreakMode="TailTruncation" 
+                                   MaxLines="5" />
                         </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>

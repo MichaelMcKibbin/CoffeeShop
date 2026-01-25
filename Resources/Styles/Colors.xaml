@@ -4,21 +4,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
-
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
+    
+    <Color x:Key="Primary">#4E342E</Color>     <!-- Espresso -->
+    <Color x:Key="PrimaryDark">#3E2723</Color>     <!-- Dark roast -->
     <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#9880e5</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <Color x:Key="Secondary">#F3E9DC</Color>     <!-- Latte cream -->
+    <Color x:Key="SecondaryDarkText">#6D4C41</Color>
+    <Color x:Key="Tertiary">#C69C6D</Color>     <!-- Caramel accent -->
 
-    <Color x:Key="DarkBackground">#17171a</Color>
-    <Color x:Key="LightOnDarkBackground">#C3C3C3</Color>
-    <Color x:Key="LightBackground">#F2F2F2</Color>
-    <Color x:Key="DarkOnLightBackground">#0D0D0D</Color>
 
-    <Color x:Key="LightSecondaryBackground">#E0E0E0</Color>
-    <Color x:Key="DarkSecondaryBackground">#222228</Color>
+    <Color x:Key="LightBackground">#FAF7F2</Color>     <!-- Warm off-white -->
+    <Color x:Key="DarkBackground">#161312</Color>     <!-- Warm dark -->
+    <Color x:Key="DarkOnLightBackground">#1C1B1A</Color>
+    <Color x:Key="LightOnDarkBackground">#E7E2DC</Color>
+    <Color x:Key="LightSecondaryBackground">#EFE6DC</Color>
+    <Color x:Key="DarkSecondaryBackground">#211C1B</Color>
+
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>

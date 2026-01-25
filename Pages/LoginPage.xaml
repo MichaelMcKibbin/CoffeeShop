@@ -5,9 +5,34 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Coffee Shop">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="16" VerticalOptions="Center">
-            <Label Text="☕ Coffee Shop ☕" FontSize="32" HorizontalOptions="Center" Margin="0,0,0,20"/>
+    <Grid>
+        <!-- Background Image -->
+        <Image Source="coffeeshopbackground.png"
+               Aspect="AspectFill"
+               Opacity="0.5" />
+        
+        <!-- Content -->
+        <ScrollView>
+            <VerticalStackLayout Padding="40,40,40,40" Spacing="16">
+            <Border BackgroundColor="Beige"
+                    StrokeThickness="0"
+                    HorizontalOptions="Center"
+                    Margin="0,20,0,20"
+                    Padding="16,8">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label Text="☕ Coffee Shop ☕" 
+                           FontSize="32" 
+                           HorizontalOptions="Center" />
+                    <Label Text="It's not just Java anymore!" 
+                           FontSize="14" 
+                           FontAttributes="Italic"
+                           HorizontalOptions="Center"
+                           Opacity="0.8" />
+                </VerticalStackLayout>
+            </Border>
             
             <Label Text="{Binding IsRegistering, Converter={StaticResource BoolToTextConverter}}" 
                    FontSize="20" 
@@ -46,6 +71,7 @@
                     Command="{Binding ToggleModeCommand}"
                     BackgroundColor="Transparent"
                     TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
-        </VerticalStackLayout>
-    </ScrollView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>
