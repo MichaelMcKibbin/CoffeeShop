@@ -6,6 +6,20 @@
     Title="{Binding Title}">
 
     <Grid Padding="16" RowDefinitions="Auto,*,Auto" RowSpacing="10">
+        <Grid.MaximumWidthRequest>
+            <OnPlatform x:TypeArguments="x:Double">
+                <On Platform="Android" Value="10000" />
+                <On Platform="iOS" Value="700" />
+                <On Platform="WinUI" Value="700" />
+            </OnPlatform>
+        </Grid.MaximumWidthRequest>
+        <Grid.HorizontalOptions>
+            <OnPlatform x:TypeArguments="LayoutOptions">
+                <On Platform="Android" Value="Fill" />
+                <On Platform="iOS" Value="Center" />
+                <On Platform="WinUI" Value="Center" />
+            </OnPlatform>
+        </Grid.HorizontalOptions>
 
         <VerticalStackLayout Spacing="4">
             <Label Text="Order for:" FontSize="12" TextColor="Gray" />

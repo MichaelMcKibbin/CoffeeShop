@@ -6,6 +6,20 @@
     Title="{Binding Title}">
 
     <VerticalStackLayout Padding="16" Spacing="12">
+        <VerticalStackLayout.MaximumWidthRequest>
+            <OnPlatform x:TypeArguments="x:Double">
+                <On Platform="Android" Value="10000" />
+                <On Platform="iOS" Value="700" />
+                <On Platform="WinUI" Value="700" />
+            </OnPlatform>
+        </VerticalStackLayout.MaximumWidthRequest>
+        <VerticalStackLayout.HorizontalOptions>
+            <OnPlatform x:TypeArguments="LayoutOptions">
+                <On Platform="Android" Value="Fill" />
+                <On Platform="iOS" Value="Center" />
+                <On Platform="WinUI" Value="Center" />
+            </OnPlatform>
+        </VerticalStackLayout.HorizontalOptions>
         <Label Text="{Binding Order.CustomerName}" FontSize="20" FontAttributes="Bold"/>
         <Label Text="{Binding Order.Telephone}" Opacity="0.8"/>
         <Label Text="{Binding Order.Summary}" FontFamily="Courier New"/>
