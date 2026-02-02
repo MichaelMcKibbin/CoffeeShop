@@ -1,12 +1,22 @@
 # ☕ Coffee Shop ☕
 
-A modern .NET MAUI mobile application for ordering coffee, food, and beverages. Built with .NET 10 and featuring a beautiful coffee-themed UI with user authentication and order management.
+A modern .NET MAUI mobile application for ordering coffee, food, and beverages. Built with .NET 10 and featuring a beautiful coffee-themed UI with automatic dark mode support, user authentication, and order management.
+
+## ✨ Key Highlights
+
+- 🌓 **Smart Theme System** - Automatic dark mode detection with manual override option
+- 👤 **Flexible Authentication** - Login, register, or continue as guest
+- 🛒 **Intuitive Shopping** - Easy-to-use basket with real-time total updates
+- 📱 **Cross-Platform** - Runs on Android, iOS, and Windows
+- 💾 **Local Storage** - SQLite database for offline-first functionality
+- 🎨 **Beautiful UI** - Coffee-themed design with responsive layouts
 
 ## Features
 
 ### User Authentication
 - **User Registration** - Create new customer accounts with full name and phone number
 - **Secure Login** - Password-protected access with SHA-256 hashing
+- **Guest Mode** - Continue as guest without creating an account (orders not saved)
 - **User Sessions** - Persistent login state with automatic profile loading
 
 ### Menu & Ordering
@@ -16,20 +26,23 @@ A modern .NET MAUI mobile application for ordering coffee, food, and beverages. 
 - **Receipt Generation** - Detailed order confirmation with unique order numbers
 
 ### Order Management
-- **Order History** - View all past orders with formatted dates and details
+- **Order History** - View all past orders with formatted dates and details (registered users only)
 - **Order Tracking** - Each order includes timestamp, items, and total amount
+- **Guest Orders** - Guests can place orders and receive receipts without account creation
 
 ### UI/UX Features
 - **Background Images** - Coffee-themed backgrounds with optimized opacity
 - **Responsive Design** - 80% width layout that adapts to different screen sizes
 - **Custom Color Theme** - Coffee shop color palette (Espresso, Latte, Caramel)
 - **Touch-Optimized** - Minimum 44px touch targets for accessibility
-- **Dark/Light Mode** - Adaptive theme support
+- **🌓 Automatic Dark Mode** - Follows system theme settings (Android, iOS, Windows)
+- **🎨 Manual Theme Toggle** - Override system theme in Settings page
+- **Theme Persistence** - Theme preference saved across app restarts
 
 ## Technology Stack
 
 - **.NET 10** - Latest .NET framework
-- **.NET MAUI** - Cross-platform UI framework (Android/iOS)
+- **.NET MAUI** - Cross-platform UI framework (Android/iOS/Windows)
 - **SQLite** - Local database for users and orders
 - **CommunityToolkit.Mvvm** - MVVM helpers and commands
 - **Syncfusion.Maui.Toolkit** - UI components
@@ -50,20 +63,23 @@ CoffeeShop/
 │   ├── CheckoutPageModel.cs      # Checkout and order placement
 │   ├── HistoryPageModel.cs       # Order history display
 │   ├── LoginPageModel.cs         # Authentication logic
-│   └── MenuPageModel.cs          # Menu browsing and basket
+│   ├── MenuPageModel.cs          # Menu browsing and basket
+│   ├── ReceiptPageModel.cs       # Order receipt display
+│   └── SettingsPageModel.cs      # App settings and theme control
 ├── Pages/
 │   ├── CategoriesPage.xaml       # Main menu navigation
 │   ├── CheckoutPage.xaml         # Order checkout
 │   ├── HistoryPage.xaml          # Order history
-│   ├── LoginPage.xaml            # Login/registration
+│   ├── LoginPage.xaml            # Login/registration/guest
 │   ├── MenuPage.xaml             # Menu item browsing
-│   └── ReceiptPage.xaml          # Order confirmation
+│   ├── ReceiptPage.xaml          # Order confirmation
+│   └── SettingsPage.xaml         # Theme settings
 ├── Services/
 │   ├── BasketService.cs          # Shopping basket management
 │   ├── DatabaseService.cs        # SQLite data access
 │   ├── MenuService.cs            # Menu data provider
 │   ├── OrderStore.cs             # Order persistence
-│   └── UserSession.cs            # User authentication
+│   └── UserSession.cs            # User authentication & guest mode
 └── Resources/
     ├── Images/                   # App images and icons
     └── Styles/                   # XAML styles and colors
@@ -103,15 +119,25 @@ CoffeeShop/
 ## Usage
 
 ### First Time Setup
+
+**Option 1: Create Account (Recommended)**
 1. Launch the app and click "Register" on the login page
 2. Enter your username, password, full name, and phone number
 3. The app will automatically log you in after registration
+4. Your orders will be saved to view later in Order History
+
+**Option 2: Continue as Guest**
+1. Launch the app and click "Continue as Guest"
+2. Browse and order without creating an account
+3. Provide name and phone number at checkout
+4. Receive order receipt immediately
+5. Note: Guest orders are not saved to history
 
 ### Placing an Order
 1. Select a category (Hot drinks, Cold drinks, or Food)
 2. Use +/- buttons to add items to your basket
 3. Click "Checkout" to review your order
-4. Customer details are auto-populated from your profile
+4. Customer details are auto-populated from your profile (or enter manually for guests)
 5. Click "Place Order" to complete
 6. View your order confirmation and receipt
 
@@ -119,24 +145,76 @@ CoffeeShop/
 1. From the Categories page, click "Order History"
 2. See all past orders with formatted dates
 3. Each order shows items, quantities, and total amount
+4. Note: Only available for registered users
+
+### Theme Settings
+The app automatically detects your device's light/dark mode setting and adapts the interface accordingly.
+
+**To manually control the theme:**
+1. From the Categories page, click "⚙️ Settings"
+2. Toggle "Use System Theme" OFF to enable manual control
+3. Toggle "Dark Mode" ON/OFF to set your preference
+4. Your theme preference is saved and persists across app restarts
+
+**Theme Modes:**
+- **System Theme (Default)** - Follows your device's dark mode setting
+- **Manual Light** - Always shows light theme regardless of device setting
+- **Manual Dark** - Always shows dark theme regardless of device setting
 
 ## Design Features
+
+### Theme System
+The app features a sophisticated dual-theme system with automatic device detection and manual override capability.
+
+**Automatic Theme Detection:**
+- ✅ Follows system dark mode settings on Android, iOS, and Windows
+- ✅ Updates in real-time when device theme changes
+- ✅ Applies to all UI elements, backgrounds, and text
+- ✅ Status bar color matches app theme (Android)
+
+**Manual Theme Control:**
+- 🎨 Access via Settings page (⚙️ button on Categories page)
+- 🔄 Toggle "Use System Theme" to enable manual control
+- 🌓 Switch between Light and Dark modes independently
+- 💾 Theme preference saved locally and persists across sessions
+
+**Theme-Aware Components:**
+- Background images with adaptive opacity (lighter in dark mode)
+- Text colors optimized for contrast in both themes
+- Button styles with appropriate colors for light/dark backgrounds
+- Border colors and UI elements that adapt to theme
+
+**Color Palettes:**
+
+**Light Mode:**
+- Background: `#FAF7F2` (Warm off-white)
+- Text: `#1C1B1A` (Almost black)
+- Primary: `#4E342E` (Espresso brown)
+- Secondary: `#F3E9DC` (Latte cream)
+
+**Dark Mode:**
+- Background: `#161312` (Warm dark)
+- Text: `#E7E2DC` (Light cream)
+- Primary: `#4E342E` (Espresso brown)
+- Secondary: `#F3E9DC` (Latte cream)
 
 ### Color Palette
 - **Primary (Espresso)**: `#4E342E` - Main buttons and branding
 - **Secondary (Latte Cream)**: `#F3E9DC` - Accents and highlights
 - **Tertiary (Caramel)**: `#C69C6D` - Purchase action buttons
-- **Background**: Coffee-themed image with 40% opacity
+- **Background**: Coffee-themed image with adaptive opacity (40% light, 20% dark)
 
 ### Typography
 - **OpenSans** - Primary font family
 - Responsive font sizes (18px base, 24px desktop)
 - Bold headers for navigation and emphasis
+- High contrast text colors for accessibility
 
 ### Layout
 - **80% width** responsive design with horizontal padding
 - **Centered content** for optimal readability
 - **12-16px spacing** between elements for touch targets
+- **Theme-aware borders** and separators
 
 ## Database Schema
 
@@ -186,6 +264,11 @@ CoffeeShop/
 - [ ] Store locator with maps integration
 - [ ] Social media sharing
 - [ ] Dietary filters (vegan, gluten-free, etc.)
+- [ ] iOS dynamic theme support improvements
+- [ ] Custom theme color picker
+- [ ] Accessibility: High contrast mode
+- [ ] Account recovery (forgot password)
+- [ ] Guest to registered user conversion flow
 
 ## License
 

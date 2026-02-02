@@ -16,7 +16,11 @@ public class UserSession
 
     public User? CurrentUser { get; private set; }
     
-    public bool IsLoggedIn => CurrentUser != null;
+    public bool IsGuestMode { get; private set; }
+    
+    public bool IsLoggedIn => CurrentUser != null || IsGuestMode;
+    
+    public string DisplayName => IsGuestMode ? "Guest" : (CurrentUser?.FullName ?? "User");
 
     public async Task<(bool Success, string Message)> LoginAsync(string username, string password)
     {
@@ -40,6 +44,7 @@ public class UserSession
         }
 
         CurrentUser = user;
+        IsGuestMode = false;
         return (true, "Login successful");
     }
 
@@ -74,13 +79,21 @@ public class UserSession
         
         // Automatically log in after registration
         CurrentUser = user;
+        IsGuestMode = false;
         
         return (true, "Registration successful");
+    }
+
+    public void EnterGuestMode()
+    {
+        CurrentUser = null;
+        IsGuestMode = true;
     }
 
     public void Logout()
     {
         CurrentUser = null;
+        IsGuestMode = false;
     }
 
     private static string HashPassword(string password)

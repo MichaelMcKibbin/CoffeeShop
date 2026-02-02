@@ -81,14 +81,25 @@
             <Button Text="{Binding IsRegistering, Converter={StaticResource BoolToButtonTextConverter}}"
                     Command="{Binding SubmitCommand}" />
 
-            <!-- Toggle between Login/Register modes -->
+            <!-- Toggle between Login/Register modes - styled as secondary button -->
             <Button Text="{Binding IsRegistering, Converter={StaticResource BoolToToggleTextConverter}}"
                     Command="{Binding ToggleModeCommand}"
-                    BackgroundColor="Transparent"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
                     TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
+                    BorderColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
+                    BorderWidth="2"
                     LineBreakMode="WordWrap"
                     HeightRequest="60"
-                    Padding="8,0" />
+                    Padding="8,0"
+                    Margin="0,8,0,0" />
+            
+            <!-- Guest Mode Button -->
+            <BoxView HeightRequest="1" Opacity="0.2" Margin="0,20,0,10"/>
+            
+            <Button Text="Continue as Guest"
+                    Command="{Binding ContinueAsGuestCommand}"
+                    BackgroundColor="{StaticResource Gray200}"
+                    TextColor="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource DarkOnLightBackground}}" />
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

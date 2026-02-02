@@ -18,27 +18,38 @@ public class OrderStore
 
     public async Task<List<Order>> LoadAllAsync()
     {
-        if (!_userSession.IsLoggedIn)
+        // Guest users have no order history
+        if (_userSession.IsGuestMode || _userSession.CurrentUser == null)
             return new List<Order>();
 
-        return await _database.GetOrdersByUserIdAsync(_userSession.CurrentUser!.Id);
+        return await _database.GetOrdersByUserIdAsync(_userSession.CurrentUser.Id);
     }
 
     public async Task SaveOrderAsync(Order order)
     {
-        if (!_userSession.IsLoggedIn)
+        // Guest orders are not saved to database
+        if (_userSession.IsGuestMode)
+        {
+            System.Diagnostics.Debug.WriteLine("Guest order not saved to database");
+            return;
+        }
+        
+        if (_userSession.CurrentUser == null)
             throw new InvalidOperationException("User must be logged in to save orders");
 
-        order.UserId = _userSession.CurrentUser!.Id;
+        order.UserId = _userSession.CurrentUser.Id;
         await _database.SaveOrderAsync(order);
     }
 
     public async Task<List<Order>> LoadTodayAsync()
     {
-        if (!_userSession.IsLoggedIn)
+        // Guest users have no order history
+        if (_userSession.IsGuestMode || _userSession.CurrentUser == null)
             return new List<Order>();
 
-        return await _database.GetTodayOrdersByUserIdAsync(_userSession.CurrentUser!.Id);
+        return await _database.GetTodayOrdersByUserIdAsync(_userSession.CurrentUser.Id);
     }
 }
+
+
 

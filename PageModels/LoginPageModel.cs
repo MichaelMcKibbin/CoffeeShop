@@ -70,5 +70,12 @@ public partial class LoginPageModel : BaseViewModel
         ErrorMessage = "";
         OnPropertyChanged(nameof(HasError));
     }
+
+    [RelayCommand]
+    private async Task ContinueAsGuestAsync()
+    {
+        _userSession.EnterGuestMode();
+        await Shell.Current.GoToAsync("//categories");
+    }
 }
 

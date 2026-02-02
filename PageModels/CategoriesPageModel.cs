@@ -17,9 +17,13 @@ public partial class CategoriesPageModel : BaseViewModel
         _userSession = userSession;
     }
 
-    public string WelcomeMessage => _userSession.CurrentUser != null 
-        ? $"Welcome, {_userSession.CurrentUser.FullName}!" 
-        : "Welcome!";
+    public string WelcomeMessage => _userSession.IsGuestMode 
+        ? "Welcome, Guest!" 
+        : _userSession.CurrentUser != null 
+            ? $"Welcome, {_userSession.CurrentUser.FullName}!" 
+            : "Welcome!";
+    
+    public bool CanViewHistory => !_userSession.IsGuestMode;
 
     [RelayCommand]
     private async Task OpenCategoryAsync(object parameter)
@@ -39,6 +43,14 @@ public partial class CategoriesPageModel : BaseViewModel
     [RelayCommand]
     private async Task OpenHistoryAsync()
     {
+        if (_userSession.IsGuestMode)
+        {
+            await Shell.Current.DisplayAlertAsync("Not Available", 
+                "Order history is only available for registered users. Create an account to save your orders!", 
+                "OK");
+            return;
+        }
+        
         await Shell.Current.GoToAsync("history");
     }
 
@@ -58,6 +70,7 @@ public partial class CategoriesPageModel : BaseViewModel
     public void OnAppearing()
     {
         OnPropertyChanged(nameof(WelcomeMessage));
+        OnPropertyChanged(nameof(CanViewHistory));
     }
 }
 

@@ -72,8 +72,11 @@
             <!-- Secondary Actions: User account and history features -->
             
             <!-- Order History Button: Navigates to HistoryPage to view past orders -->
+            <!-- Disabled for guest users (they have no saved history) -->
             <Button Text="Order History"
-                    Command="{Binding OpenHistoryCommand}" />
+                    Command="{Binding OpenHistoryCommand}"
+                    IsEnabled="{Binding CanViewHistory}"
+                    Opacity="{Binding CanViewHistory, Converter={StaticResource BoolToOpacityConverter}}" />
             
             <!-- Settings Button: Navigate to app settings (theme, etc.) -->
             <Button Text="⚙️ Settings"

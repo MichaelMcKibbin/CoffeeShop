@@ -22,7 +22,7 @@ public partial class CheckoutPageModel : BaseViewModel
         _userSession = userSession;
 
         Lines = _basket.Lines; // bind directly
-        Title = "Checkout";
+        Title = "Basket/Checkout";
         
         // Auto-populate from logged-in user
         if (_userSession.IsLoggedIn && _userSession.CurrentUser != null)
@@ -30,6 +30,7 @@ public partial class CheckoutPageModel : BaseViewModel
             CustomerName = _userSession.CurrentUser.FullName;
             Telephone = _userSession.CurrentUser.PhoneNumber;
         }
+        // For guest users, leave fields empty for them to fill in
     }
 
     public ObservableCollection<OrderLine> Lines { get; }
