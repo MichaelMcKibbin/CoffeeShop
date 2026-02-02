@@ -43,6 +43,12 @@ public partial class CategoriesPageModel : BaseViewModel
     }
 
     [RelayCommand]
+    private async Task OpenSettingsAsync()
+    {
+        await Shell.Current.GoToAsync("settings");
+    }
+
+    [RelayCommand]
     private async Task LogoutAsync()
     {
         _userSession.Logout();
@@ -54,4 +60,6 @@ public partial class CategoriesPageModel : BaseViewModel
         OnPropertyChanged(nameof(WelcomeMessage));
     }
 }
+
+
 

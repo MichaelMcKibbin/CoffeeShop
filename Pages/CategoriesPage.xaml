@@ -42,7 +42,10 @@
             <Label Text="{Binding WelcomeMessage}" 
                    FontSize="20" 
                    FontAttributes="Bold"
-                   HorizontalOptions="Center"
+                   HorizontalOptions="Fill"
+                   HorizontalTextAlignment="Center"
+                   LineBreakMode="TailTruncation"
+                   MaxLines="2"
                    Margin="0,10,0,20" />
 
             <!-- Menu Category Navigation: Primary action buttons -->
@@ -71,6 +74,10 @@
             <!-- Order History Button: Navigates to HistoryPage to view past orders -->
             <Button Text="Order History"
                     Command="{Binding OpenHistoryCommand}" />
+            
+            <!-- Settings Button: Navigate to app settings (theme, etc.) -->
+            <Button Text="⚙️ Settings"
+                    Command="{Binding OpenSettingsCommand}" />
         
             <!-- Logout Button: Clears user session and returns to login -->
             <!-- Uses Gray300 background to visually distinguish from primary actions -->

@@ -37,6 +37,7 @@ public static class MauiProgram
         builder.Services.AddTransient<CheckoutPageModel>();
         builder.Services.AddTransient<ReceiptPageModel>();
         builder.Services.AddTransient<HistoryPageModel>();
+        builder.Services.AddTransient<SettingsPageModel>();
 
         // Pages
         builder.Services.AddTransient<LoginPage>();
@@ -45,6 +46,7 @@ public static class MauiProgram
         builder.Services.AddTransient<CheckoutPage>();
         builder.Services.AddTransient<ReceiptPage>();
         builder.Services.AddTransient<HistoryPage>();
+        builder.Services.AddTransient<SettingsPage>();
 
         return builder.Build();
     }

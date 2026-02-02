@@ -16,5 +16,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("checkout", typeof(CheckoutPage));
         Routing.RegisterRoute("receipt", typeof(ReceiptPage));
         Routing.RegisterRoute("history", typeof(HistoryPage));
+        Routing.RegisterRoute("settings", typeof(SettingsPage));
     }
 }

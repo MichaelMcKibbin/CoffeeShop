@@ -4,23 +4,21 @@
 * text=auto
 
 ###############################################################################
-# Set default behavior for command prompt diff.
-#
-# This is need for earlier builds of msysgit that does not have it on by
-# default for csharp files.
-# Note: This is only used by command line
+# C# and .NET files
 ###############################################################################
-#*.cs     diff=csharp
+*.cs     text diff=csharp eol=crlf
+*.xaml   text eol=crlf
+*.csproj text eol=crlf
+*.sln    text eol=crlf
+*.config text eol=crlf
+*.props  text eol=crlf
+*.targets text eol=crlf
+*.json   text eol=crlf
+*.xml    text eol=crlf
+*.md     text eol=crlf
 
 ###############################################################################
 # Set the merge driver for project and solution files
-#
-# Merging from the command prompt will add diff markers to the files if there
-# are conflicts (Merging from VS is not affected by the settings below, in VS
-# the diff markers are never inserted). Diff markers may cause the following 
-# file extensions to fail to load in VS. An alternative would be to treat
-# these files as binary and thus will always conflict and require user
-# intervention with every merge. To do so, just uncomment the entries below
 ###############################################################################
 #*.sln       merge=binary
 #*.csproj    merge=binary
@@ -37,27 +35,23 @@
 
 ###############################################################################
 # behavior for image files
-#
-# image files are treated as binary by default.
 ###############################################################################
-#*.jpg   binary
-#*.png   binary
-#*.gif   binary
+*.jpg   binary
+*.png   binary
+*.gif   binary
+*.ico   binary
+*.bmp   binary
 
 ###############################################################################
 # diff behavior for common document formats
-# 
-# Convert binary document formats to text before diffing them. This feature
-# is only available from the command line. Turn it on by uncommenting the 
-# entries below.
 ###############################################################################
-#*.doc   diff=astextplain
-#*.DOC   diff=astextplain
-#*.docx  diff=astextplain
-#*.DOCX  diff=astextplain
-#*.dot   diff=astextplain
-#*.DOT   diff=astextplain
-#*.pdf   diff=astextplain
-#*.PDF   diff=astextplain
-#*.rtf   diff=astextplain
-#*.RTF   diff=astextplain
+*.doc   diff=astextplain
+*.DOC   diff=astextplain
+*.docx  diff=astextplain
+*.DOCX  diff=astextplain
+*.dot   diff=astextplain
+*.DOT   diff=astextplain
+*.pdf   diff=astextplain
+*.PDF   diff=astextplain
+*.rtf   diff=astextplain
+*.RTF   diff=astextplain

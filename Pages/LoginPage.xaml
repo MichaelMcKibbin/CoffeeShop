@@ -6,10 +6,10 @@
     Title="Coffee Shop">
 
     <Grid>
-        <!-- Background Image -->
+        <!-- Background Image with theme-aware opacity -->
         <Image Source="coffeeshopbackground.png"
                Aspect="AspectFill"
-               Opacity="0.5" />
+               Opacity="{AppThemeBinding Light=0.4, Dark=0.2}" />
         
         <!-- Content -->
         <ScrollView>
@@ -38,7 +38,7 @@
                 </Border.StrokeShape>
                 <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
                     <Label Text="☕ Coffee Shop ☕" 
-                           FontSize="32" 
+                           FontSize="28" 
                            HorizontalOptions="Center" />
                     <Label Text="It's not just Java anymore!" 
                            FontSize="14" 
@@ -81,10 +81,14 @@
             <Button Text="{Binding IsRegistering, Converter={StaticResource BoolToButtonTextConverter}}"
                     Command="{Binding SubmitCommand}" />
 
+            <!-- Toggle between Login/Register modes -->
             <Button Text="{Binding IsRegistering, Converter={StaticResource BoolToToggleTextConverter}}"
                     Command="{Binding ToggleModeCommand}"
                     BackgroundColor="Transparent"
-                    TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
+                    TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
+                    LineBreakMode="WordWrap"
+                    HeightRequest="60"
+                    Padding="8,0" />
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

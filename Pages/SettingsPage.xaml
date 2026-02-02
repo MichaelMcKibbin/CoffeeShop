@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CoffeeShop.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
+
+    <Grid Padding="16" RowDefinitions="*,Auto" RowSpacing="10">
+        <Grid.MaximumWidthRequest>
+            <OnPlatform x:TypeArguments="x:Double">
+                <On Platform="Android" Value="10000" />
+                <On Platform="iOS" Value="700" />
+                <On Platform="WinUI" Value="700" />
+            </OnPlatform>
+        </Grid.MaximumWidthRequest>
+        <Grid.HorizontalOptions>
+            <OnPlatform x:TypeArguments="LayoutOptions">
+                <On Platform="Android" Value="Fill" />
+                <On Platform="iOS" Value="Center" />
+                <On Platform="WinUI" Value="Center" />
+            </OnPlatform>
+        </Grid.HorizontalOptions>
+
+        <ScrollView>
+            <VerticalStackLayout Spacing="20">
+                
+                <!-- Theme Section -->
+                <Border StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                        Padding="16"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="🎨 Appearance"
+                               FontSize="20"
+                               FontAttributes="Bold" />
+                        
+                        <BoxView HeightRequest="1"
+                                 Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                        
+                        <!-- Auto Theme Toggle -->
+                        <Grid ColumnDefinitions="*,Auto" Padding="0,8">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Use System Theme"
+                                       FontSize="16"
+                                       FontAttributes="Bold" />
+                                <Label Text="Follow device dark mode setting"
+                                       FontSize="12"
+                                       Opacity="0.7" />
+                            </VerticalStackLayout>
+                            
+                            <Switch Grid.Column="1"
+                                    IsToggled="{Binding UseSystemTheme}"
+                                    VerticalOptions="Center" />
+                        </Grid>
+                        
+                        <!-- Manual Dark Mode Toggle (only shown when not using system theme) -->
+                        <Grid ColumnDefinitions="*,Auto"
+                              Padding="0,8"
+                              IsVisible="{Binding IsManualThemeControlVisible}">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Dark Mode"
+                                       FontSize="16"
+                                       FontAttributes="Bold" />
+                                <Label Text="Manually enable dark theme"
+                                       FontSize="12"
+                                       Opacity="0.7" />
+                            </VerticalStackLayout>
+                            
+                            <Switch Grid.Column="1"
+                                    IsToggled="{Binding IsDarkMode}"
+                                    VerticalOptions="Center"
+                                    IsEnabled="{Binding IsManualThemeControlEnabled}" />
+                        </Grid>
+                        
+                        <!-- Current Theme Display -->
+                        <Border BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Tertiary}}"
+                                Padding="12,6"
+                                Margin="0,8,0,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="4" />
+                            </Border.StrokeShape>
+                            <Label Text="{Binding CurrentThemeText}"
+                                   TextColor="White"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- App Info Section -->
+                <Border StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                        Padding="16"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="ℹ️ About"
+                               FontSize="20"
+                               FontAttributes="Bold" />
+                        
+                        <BoxView HeightRequest="1"
+                                 Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                        
+                        <Label Text="Coffee Shop"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               Margin="0,4,0,0" />
+                        <Label Text="Version 1.0.0"
+                               FontSize="14"
+                               Opacity="0.7" />
+                        <Label Text="A .NET MAUI ordering application"
+                               FontSize="14"
+                               Opacity="0.7" />
+                        <Label Text="© 2025 Michael McKibbin"
+                               FontSize="12"
+                               Opacity="0.6"
+                               Margin="0,8,0,0" />
+                    </VerticalStackLayout>
+                </Border>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Back Button -->
+        <Button Grid.Row="1"
+                Text="← Back to Categories"
+                Command="{Binding BackCommand}"
+                BackgroundColor="{StaticResource Primary}" />
+    </Grid>
+</ContentPage>

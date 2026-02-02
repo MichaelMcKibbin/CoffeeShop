@@ -51,7 +51,7 @@ public partial class CheckoutPageModel : BaseViewModel
     {
         if (Lines.Count == 0)
         {
-            await Shell.Current.DisplayAlert("Empty basket", "Add at least one item.", "OK");
+            await Shell.Current.DisplayAlertAsync("Empty basket", "Add at least one item.", "OK");
             return;
         }
 
